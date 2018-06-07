@@ -15,7 +15,7 @@ ros::Publisher pub_vel;
 geometry_msgs::Point32 point;
 geometry_msgs::Twist velocity;
 
-static int line=4;
+static int line=0;
 
 float getPointL2Norm(geometry_msgs::Point32 p){
     return sqrt(pow(p.x, 2) + pow(p.y,2) + pow(p.z,2));
@@ -79,6 +79,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
 
            velocity.linear.x=1;
            velocity.angular.z=2*angle(point);
+            line=4;
 
        }  else if(line==2)
    {
@@ -119,6 +120,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
 
         velocity.linear.x=1;
         velocity.angular.z=2*angle(point);
+         line=4;
 
         }
      else {
