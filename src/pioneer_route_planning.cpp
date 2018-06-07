@@ -21,6 +21,8 @@ int t;
 string qrkod;
 int ktory;
 
+//TESTY
+
 
 bool decyzja=0;
 
