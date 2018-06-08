@@ -11,8 +11,10 @@ using namespace std;
 using namespace message_filters;
 
 ros::Publisher pub_vel;
+ros::Publisher pub_point;
 
 geometry_msgs::Point32 point;
+
 geometry_msgs::Twist velocity;
 
 static int line=0;
@@ -32,6 +34,9 @@ void stop(){
 float angle(geometry_msgs::Point32 p){
     float x=p.x;
     float y=p.y;
+
+
+
     return atan2(y, x);
 }
 
@@ -78,7 +83,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
            point.y = sredniay;
 
            velocity.linear.x=1;
-           velocity.angular.z=2*angle(point);
+           velocity.angular.z=angle(point);
             line=4;
 
        }  else if(line==2)
@@ -100,7 +105,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
 
 
        velocity.linear.x=1;
-       velocity.angular.z=2*angle(point);
+       velocity.angular.z=angle(point);
 
        line=4;
    }
@@ -119,7 +124,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
         point.y = sredniay;
 
         velocity.linear.x=1;
-        velocity.angular.z=2*angle(point);
+        velocity.angular.z=angle(point);
          line=4;
 
         }
@@ -183,6 +188,7 @@ int main(int argc, char** argv)
 
     ros::Subscriber sub_cloud = n.subscribe("/line", 10, &lineCallback);
     ros::Subscriber sub_String = n.subscribe("/direction", 10, &line2Callback);
+
 
      pub_vel = n.advertise<geometry_msgs::Twist>("/cvel", 10);
 
