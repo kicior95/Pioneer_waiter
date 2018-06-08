@@ -78,7 +78,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
            point.y = sredniay;
 
            velocity.linear.x=1;
-           velocity.angular.z=2*angle(point);
+           velocity.angular.z=angle(point);
             line=4;
 
        }  else if(line==2)
@@ -100,7 +100,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
 
 
        velocity.linear.x=1;
-       velocity.angular.z=2*angle(point);
+       velocity.angular.z=angle(point);
 
        line=4;
    }
@@ -119,7 +119,7 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg){
         point.y = sredniay;
 
         velocity.linear.x=1;
-        velocity.angular.z=2*angle(point);
+        velocity.angular.z=angle(point);
          line=4;
 
         }
