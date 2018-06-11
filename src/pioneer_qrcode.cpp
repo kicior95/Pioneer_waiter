@@ -58,6 +58,16 @@ void display(Mat &im, vector<decodedObject>&decodedObjects) {
         vector<Point> points = decodedObjects[i].location;
         vector<Point> hull;
 
+        string text = decodedObjects[i].data;
+        int fontFace = FONT_HERSHEY_SCRIPT_SIMPLEX;
+        double fontScale = 2;
+        int thickness = 3;
+        int baseline=0;
+        Size textSize = getTextSize(text, fontFace, fontScale, thickness, &baseline);
+        baseline += thickness;
+        Point textOrg((im.cols - textSize.width)/2, (im.rows + textSize.height)/2);
+
+
         if(points.size() > 4)
             convexHull(points, hull);
         else
@@ -66,9 +76,12 @@ void display(Mat &im, vector<decodedObject>&decodedObjects) {
         int n = hull.size();
 
         for(int j = 0; j < n; j++) {
-            line(im, hull[j], hull[ (j+1) % n], Scalar(0, 128, 0), 3);
+            line(im, hull[j], hull[ (j+1) % n], Scalar(0, 128, 0), 2);
         }
+
+        putText(im, text, textOrg, fontFace, fontScale, Scalar::all(255), thickness, 8);
     }
+
 
     imshow("Results", im);
     waitKey(30);
@@ -88,7 +101,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) {
             cout <<  "Could not open or find the image" << std::endl ;
         }
         else {
-            flip(im,im,-1);
+            flip(im,im,0);
 
             vector<decodedObject> decodedObjects;
             decode(im, decodedObjects);
