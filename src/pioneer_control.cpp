@@ -37,6 +37,7 @@ float angle(geometry_msgs::Point32 p) {
 }
 
 
+
 geometry_msgs::Point32 geom_center(const sensor_msgs::PointCloudPtr& msg, int x2, int x1) {
     float sumx = 0;
     float sumy = 0;
@@ -68,6 +69,9 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg) {
 
     if(msg->points.size() < min_num_points) {
         stop();
+        //velocity.linear.x = 1;
+        //velocity.angular.z = 1;
+        //pub_vel.publish(velocity);
     }
     else {
 
@@ -80,13 +84,13 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg) {
         case 1:
             point = geom_center(msg, 120, 10000);
             velocity.linear.x = 1;
-            velocity.angular.z = 1.5*angle(point);
+            velocity.angular.z = 2*angle(point);
             line = 4;
             break;
         case 2:
-            point = geom_center(msg, -1000,-180);
+            point = geom_center(msg, -1000,-120);
             velocity.linear.x = 1;
-            velocity.angular.z = 1.5*angle(point);
+            velocity.angular.z = 2*angle(point);
             line = 4;
             break;
         case 3:
@@ -125,7 +129,7 @@ void line2Callback(const std_msgs::String::ConstPtr& msg_qr) {
 int main(int argc, char** argv) {
     ros::init(argc, argv, "pioneer_control");
     ros::NodeHandle n;
-    ros::Rate rate(30);
+    ros::Rate rate(50);
 
     ros::Subscriber sub_cloud = n.subscribe("/line", 10, &lineCallback);
     ros::Subscriber sub_String = n.subscribe("/direction", 10, &line2Callback);

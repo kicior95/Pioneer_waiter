@@ -122,7 +122,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 int main(int argc, char** argv) {
     ros::init(argc, argv, "pioneer_qrcode");
     ros::NodeHandle n;
-    ros::Rate rate(30);
+    ros::Rate rate(50);
 
     pub_qr = n.advertise<std_msgs::String>("/qr", 10);
     image_transport::ImageTransport it(n);

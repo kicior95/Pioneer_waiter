@@ -20,7 +20,7 @@ int s;
 int t;
 string qrkod;
 int ktory;
-
+bool wracam=0;
 //TESTY
 
 
@@ -284,8 +284,20 @@ if(decyzja)
 
         if(w_a.numer==t){
 
-            wait(15);
+            //wait(15);
             t=0;
+            wracam=1;
+        }
+        if(w_a.numer==0 && wracam==1){
+
+            pub_msg.data="stop";
+            pub.publish(pub_msg);
+            w_a=wie[17]; w_a.numer=17;
+            cout<<"Gdzie jechac?"<<endl;
+            cin>>t;           //wierzchołek docelowy t
+            wracam=0;
+            graf();
+
         }
     }
 }
@@ -304,7 +316,7 @@ int main(int argc, char** argv)
 
     ros::init(argc, argv, "pioneer_route_planning");
     ros::NodeHandle n;
-    ros::Rate rate(30);
+    ros::Rate rate(50);
 
     sub = n.subscribe("/qr", 10, &lineCallback);
     pub = n.advertise<std_msgs::String>("/direction", 10);

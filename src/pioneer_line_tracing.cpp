@@ -106,7 +106,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 int main(int argc, char** argv) {
     ros::init(argc, argv, "pioneer_line_tracing");
     ros::NodeHandle n;
-    ros::Rate rate(30);
+    ros::Rate rate(50);
 
     pub_cloud = n.advertise<sensor_msgs::PointCloud>("/line", 10);
     image_transport::ImageTransport it(n);

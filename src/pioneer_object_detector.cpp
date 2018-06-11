@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 
     ros::init(argc, argv, "pioneer_route_planning");
     ros::NodeHandle n;
-    ros::Rate rate(30);
+    ros::Rate rate(50);
 
 
     //sub_cloud = n.subscribe("/qr", 10, &lineCallback);
