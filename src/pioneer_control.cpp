@@ -37,9 +37,30 @@ float angle(geometry_msgs::Point32 p) {
 }
 
 
-void move(float rotate) {
-    velocity.linear.x = 1;
-    velocity.angular.z = angle(point);
+geometry_msgs::Point32 geom_center(const sensor_msgs::PointCloudPtr& msg, int x2, int x1) {
+    float sumx = 0;
+    float sumy = 0;
+    float sredniax = 0;
+    float sredniay = 0;
+
+
+
+    for (int i = 0; i < msg->points.size(); i++) {
+        if(msg->points[i].y < x1 && msg->points[i].y > x2) {
+            sumx += msg->points[i].x;
+            sumy += msg->points[i].y;
+        }
+    }
+
+    sredniax = sumx/msg->points.size();
+    sredniay = sumy/msg->points.size();
+    point.x = sredniax;
+    point.y = sredniay;
+    return point;
+}
+
+void move(geometry_msgs::Twist velocity) {
+    pub_vel.publish(velocity);
 }
 
 void lineCallback(const sensor_msgs::PointCloudPtr& msg) {
@@ -49,81 +70,40 @@ void lineCallback(const sensor_msgs::PointCloudPtr& msg) {
         stop();
     }
     else {
-        float sumx = 0;
-        float sumy = 0;
-        float sredniax = 0;
-        float sredniay = 0;
 
-        if(line == 0) {
-            stop();
-        }else if (line == 1) {
-            for (int i = 0; i < msg->points.size(); i++) {
-                if(msg->points[i].y > 120)
-                {
-                    sumx += msg->points[i].x;
-                    sumy += msg->points[i].y;
-                }
-            }
-            sredniax = sumx / msg->points.size();
-            sredniay = sumy / msg->points.size();
-            point.x = sredniax;
-            point.y = sredniay;
 
+        switch (line) {
+        case 0:
+            velocity.linear.x = 0;
+            velocity.angular.z = 0;
+            break;
+        case 1:
+            point = geom_center(msg, 120, 10000);
+            velocity.linear.x = 1;
+            velocity.angular.z = 1.5*angle(point);
+            line = 4;
+            break;
+        case 2:
+            point = geom_center(msg, -1000,-180);
+            velocity.linear.x = 1;
+            velocity.angular.z = 1.5*angle(point);
+            line = 4;
+            break;
+        case 3:
+            point = geom_center(msg, -80, 80);
             velocity.linear.x = 1;
             velocity.angular.z = angle(point);
             line = 4;
-
-        }else if (line == 2) {
-            for (int i = 0; i < msg->points.size(); i++) {
-                if(msg->points[i].y < -120) {
-                    sumx += msg->points[i].x;
-                    sumy += msg->points[i].y;
-                }
-            }
-
-            sredniax = sumx/msg->points.size();
-            sredniay = sumy/msg->points.size();
-
-            point.x = sredniax;
-            point.y = sredniay;
-
-
-            velocity.linear.x = 1;
-            velocity.angular.z = angle(point);
-            line = 4;
-        }else if(line == 3) {
-            for (int i = 0; i < msg->points.size(); i++) {
-                if(msg->points[i].y < 80 && msg->points[i].y > -80) {
-                    sumx += msg->points[i].x;
-                    sumy += msg->points[i].y;
-                }
-            }
-
-            sredniax = sumx/msg->points.size();
-            sredniay = sumy/msg->points.size();
-            point.x = sredniax;
-            point.y = sredniay;
-
-            velocity.linear.x = 1;
-            velocity.angular.z = angle(point);
-            line = 4;
-        }
-        else {
-            for (int i = 0; i < msg->points.size(); i++) {
-                sumx += msg->points[i].x;
-                sumy += msg->points[i].y;
-            }
-
-            sredniax = sumx/msg->points.size();
-            sredniay = sumy/msg->points.size();
-            point.x = sredniax;
-            point.y = sredniay;
-
+            break;
+        case 4:
+            point = geom_center(msg, -1000, 1000);
             velocity.linear.x = 2;
             velocity.angular.z = angle(point);
+            break;
         }
+
+        pub_vel.publish(velocity);
     }
-    pub_vel.publish(velocity);
 }
 
 

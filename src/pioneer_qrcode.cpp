@@ -66,7 +66,7 @@ void display(Mat &im, vector<decodedObject>&decodedObjects) {
         int n = hull.size();
 
         for(int j = 0; j < n; j++) {
-            line(im, hull[j], hull[ (j+1) % n], Scalar(255, 0, 0), 3);
+            line(im, hull[j], hull[ (j+1) % n], Scalar(0, 128, 0), 3);
         }
     }
 

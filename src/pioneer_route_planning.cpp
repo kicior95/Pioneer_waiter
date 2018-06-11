@@ -159,6 +159,7 @@ string kierunek(wierzcholek w0,wierzcholek w1,wierzcholek w2){
             kierunki="prosto";
         }
     }
+
     if(y0-y1<0){ //y rosnie - polnoc
         if(x1-x2<0){ //x rosnie - wschod
             kierunki="prawo";
