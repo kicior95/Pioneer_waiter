@@ -13,6 +13,21 @@ Robokelner jest próbą rozwiązania problemu robotyzacji dostarczania posilków
 <img src="https://user-images.githubusercontent.com/40024757/41286333-53787c0c-6e3f-11e8-8d29-308ffc590575.png" width="50%">
 </p>
 
+### Moduł: Line Tracking
+TODO
+
+### Moduł: Control
+TODO
+
+### Moduł: Barcode Scanner
+TODO
+
+### Moduł: Object Detector
+TODO
+
+### Route Planning
+TODO
+
  
 
 ## Środowisko pracy
