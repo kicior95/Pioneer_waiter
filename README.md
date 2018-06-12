@@ -9,7 +9,11 @@ Robokelner jest próbą rozwiązania problemu robotyzacji dostarczania posilków
   
   ##  Moduły programu
  Projekt sklada sie z podmodułów zawierające programy wykonujące poszczególne zadania. Schemat połączeń pomiędzy modułami załączono poniżej.
- ![1](https://user-images.githubusercontent.com/40024757/41286333-53787c0c-6e3f-11e8-8d29-308ffc590575.png)
+ <p align="center">
+<img src="https://user-images.githubusercontent.com/40024757/41286333-53787c0c-6e3f-11e8-8d29-308ffc590575.png" width="50%">
+</p>
+
+ 
 
 ## Środowisko pracy
 W projekcie wykorzystano program symulujący założenia projektowe. Do tego celu zastosowano następujące narzędzia:
