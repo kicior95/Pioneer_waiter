@@ -3,6 +3,7 @@
 #include <sensor_msgs/PointCloud.h>
 #include <geometry_msgs/Twist.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Bool.h>
 
 using namespace std;
 using namespace message_filters;
@@ -14,6 +15,8 @@ ros::Publisher pub_point;
 
 geometry_msgs::Point32 point;
 geometry_msgs::Twist velocity;
+std_msgs::Bool stop;
+
 
 static int line = 0;
 
@@ -22,7 +25,7 @@ float getPointL2Norm(geometry_msgs::Point32 p) {
 }
 
 
-void stop() {
+void stop_robot() {
     velocity.linear.x = 0;
     velocity.angular.z = 0;
     pub_vel.publish(velocity);
@@ -67,8 +70,8 @@ void move(geometry_msgs::Twist velocity) {
 void lineCallback(const sensor_msgs::PointCloudPtr& msg) {
     const int min_num_points = 5;
 
-    if(msg->points.size() < min_num_points) {
-        stop();
+    if(msg->points.size() < min_num_points || stop.data == true) {
+        stop_robot();
         //velocity.linear.x = 1;
         //velocity.angular.z = 1;
         //pub_vel.publish(velocity);
@@ -125,6 +128,9 @@ void line2Callback(const std_msgs::String::ConstPtr& msg_qr) {
     }
 }
 
+void lineCallback3(const std_msgs::Bool::ConstPtr& msg_stop) {
+   stop.data = msg_stop->data;
+}
 
 int main(int argc, char** argv) {
     ros::init(argc, argv, "pioneer_control");
@@ -132,7 +138,8 @@ int main(int argc, char** argv) {
     ros::Rate rate(50);
 
     ros::Subscriber sub_cloud = n.subscribe("/line", 10, &lineCallback);
-    ros::Subscriber sub_String = n.subscribe("/direction", 10, &line2Callback);
+    ros::Subscriber sub_string = n.subscribe("/direction", 10, &line2Callback);
+    ros::Subscriber sub_stop = n.subscribe("/stop", 10, &lineCallback3);
 
     pub_vel = n.advertise<geometry_msgs::Twist>("/cvel", 10);
 

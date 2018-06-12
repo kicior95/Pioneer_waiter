@@ -1,6 +1,6 @@
 #include <ros/ros.h>
-#include <sensor_msgs/PointCloud.h>
-#include <geometry_msgs/Twist.h>
+#include <std_msgs/Float32.h>
+#include <std_msgs/Bool.h>
 
 using namespace std;
 
@@ -8,29 +8,32 @@ ros::Subscriber sub;
 ros::Publisher pub;
 
 
-void lineCallback(const sensor_msgs::PointCloudPtr& msg){
+void lineCallback(const std_msgs::Float32::ConstPtr& msg){
+    std_msgs::Bool stop;
 
+    if(msg->data>0.80) {
+         stop.data = true;
+    } else {
+        stop.data = false;
+    }
+    pub.publish(stop);
 }
 
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 
-    ros::init(argc, argv, "pioneer_route_planning");
+    ros::init(argc, argv, "pioneer_object_detector");
     ros::NodeHandle n;
     ros::Rate rate(50);
 
 
-    //sub_cloud = n.subscribe("/qr", 10, &lineCallback);
-    //pub_vel = n.advertise<geometry_msgs::Twist>("/cvel", 10);
+    sub = n.subscribe("/ultrasonic", 10, &lineCallback);
+    pub = n.advertise<std_msgs::Bool>("/stop", 10);
 
 
 
-    while(n.ok())
-    {
-        //Spin
+    while(n.ok()) {
         ros::spinOnce();
-        //Sleep
         rate.sleep();
     }
 
