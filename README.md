@@ -33,7 +33,7 @@ TODO
 </p>
 
 ### Moduł: Barcode Scanner
-TODO
+ Moduł odpowiedzialny za detekcję oraz dekodowanie kodów QR. Sygnalem wejściowym jest obraz pochodzący z kamery. Sygnalem wyjściowym jest informacja zawierająca sie w odczytanmy QR Code. Obraz jest zamieniany z przestrzeni barw RGB na przestrzen w odcieniach szarości. Następnie kod jesy wykrywany i dekodowany. Moduł wykorzystuje biblioteke OpenCV do przetwarzania obrazu oraz  biblioteke ZBar do detekcji orez dekodowania kodów QR.
 <p align="center">
 <img src="https://user-images.githubusercontent.com/40024757/41373319-47730f1e-6f50-11e8-9e5d-89d5b09fa37d.png" width="50%">
 </p>
