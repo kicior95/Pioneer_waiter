@@ -15,19 +15,33 @@ Robokelner jest próbą rozwiązania problemu robotyzacji dostarczania posilków
 
 ### Moduł: Line Tracking
 TODO
+<p align="center">
+<img src="https://user-images.githubusercontent.com/40024757/41373313-44d1f2ac-6f50-11e8-810f-1c65980839e5.png" width="50%">
+</p>
 
 ### Moduł: Control
 TODO
+<p align="center">
+<img src="https://user-images.githubusercontent.com/40024757/41373316-47219972-6f50-11e8-946f-1d12f12c05a8.png" width="50%">
+</p>
 
 ### Moduł: Barcode Scanner
 TODO
+<p align="center">
+<img src="https://user-images.githubusercontent.com/40024757/41373319-47730f1e-6f50-11e8-9e5d-89d5b09fa37d.png" width="50%">
+</p>
 
 ### Moduł: Object Detector
 TODO
+<p align="center">
+<img src="https://user-images.githubusercontent.com/40024757/41373317-4743b50c-6f50-11e8-8e97-fd1200c36bf7.png" width="50%">
+</p>
 
 ### Route Planning
 TODO
-
+<p align="center">
+<img src="https://user-images.githubusercontent.com/40024757/41373455-b65909d8-6f50-11e8-95e6-cbb01e0ded25.png" width="50%">
+</p>
  
 
 ## Środowisko pracy
